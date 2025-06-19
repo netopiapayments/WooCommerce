@@ -1,0 +1,264 @@
+
+
+/* SINGLE PRODUCT SIMULATOR */
+
+.oney-netopia-container-single-product {
+    background:#fff;
+    border: 2px solid #8bbc06;
+    /* display: inline-block; */
+    /* Temporary Display None */
+    display: none;             
+    padding: 10px 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
+
+.oney-netopia-progress-msg img {
+    display: inline;
+    width: 95px;
+    margin-bottom: -4px;
+    vertical-align: unset !important;
+}
+
+.oney-netopia-progress-msg .cumpara-text {
+    font-size: 14px;
+}
+
+.oney-netopia-container-single-product #oney-netopia-image {
+    width: 275px;
+    max-height: unset !important;
+    margin: 0px !important;
+}
+
+p.text-oney-netopia-single-product {
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+}
+
+.oney-netopia-rate span {
+    font-size: 14px;
+    font-weight: 600;
+}
+p.text-oney-netopia-single-product{
+    font-size:14px;
+}
+
+
+.oney-netopia-rates-wrapper {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.oney-netopia-rate {
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    flex-wrap: wrap;
+}
+
+
+span.oney-netopia-rate-value strong {
+    color: #8bbc06;
+    font-size: 20px;
+    line-height: 20px;
+}
+
+
+@media only screen and (max-width: 767px) {
+.oney-netopia-container-single-product {
+    width: 100%;
+}
+
+.oney-netopia-rates-wrapper {
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom:0px;
+}
+
+}
+/* END SINGEL PRODUCT SIMULATOR */
+
+
+/* BEGIN CUMPARA DE INCA X */
+.oney-netopia-progress-bar .oney-netopia-progress-area {
+    width: 100%;
+    background-color: #f1f1f1;
+}
+
+
+
+.oney-netopia-progress-msg a, .oney-netopia-details{
+    color: #8bbc06;
+    font-weight: bold;
+    border-radius: 5px;
+}
+
+
+.oney-netopia-progress-bar :is(.oney-netopia-progress-area,.oney-netopia-progress-bar) {
+    height: 7px;
+    border-radius: 0px;
+}
+
+.oney-netopia-progress-bar {
+    background-color: #8bbc06;
+    margin-top: 10px;
+    background-image: linear-gradient(135deg, rgba(255,255,255,0.2) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.2) 75%, transparent 75%, transparent);
+    background-size: 15px 15px;
+}
+
+
+.oney-netopia-payment-progress-bar.oney-netopia-style-bordered .oney-netopia-free-progress-bar {
+    padding: 20px;
+    border: 2px dashed #8bbc06;
+    background: #fff;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+.oney-netopia-progress-msg .oney-netopia-remaining-amount{
+    font-weight: 600;
+    color: #8bbc06;
+}
+/* END CUMPARA DE INCA X */
+
+/* CHECKOUT */
+
+strong.oney-netopia-checkout-new {
+    background: #8bbc06;
+    color: #fff;
+    padding: 3px 8px;
+    border-radius: 5px;
+    margin-left: 5px;
+    display: inline-block;
+}
+
+.woocommerce-checkout .oney-netopia-container-single-product {
+    width: 94%;
+}
+
+.woocommerce-checkout .oney-netopia-rates-wrapper {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+
+/* BEGIN PAGE DETAILS */
+.landing-page-oney-netopia-images-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+/* Styles for images */
+.landing-page-oney-netopia-images-container img {
+    max-width: 50%; /* Adjust as needed */
+    padding: 10px; /* Add space between images */
+}
+
+/* Media query for responsive layout */
+@media screen and (max-width: 1024px) {
+    .landing-page-oney-netopia-images-container img {
+        max-width: 100%; /* Make images full width */
+    }
+}
+/* END PAGE DETAILS */
+
+
+
+a.oney-details {
+    font-weight: 700;
+    font-size: 14px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #ED0973;
+}
+
+a.oney-details:hover {
+    background: #ED0973;
+    color: #fff;
+}
+
+.oney_credex_payment_field_info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}
+
+.field-credex-perioada-select {
+    flex-direction: row;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.field-credex-afisare-valoare p {
+    margin-bottom: 0px;
+}
+.field-credex-afisare-valoare {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 16px;
+}
+
+
+.oney_credex_payment_field_info strong#titlu-promotie-oney {
+    background-color: #ED0973;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #fff;
+    display: block;
+    font-size: 11px;
+    margin-left: 9px;
+}
+
+.field-credex-afisare-valoare p strong {
+    font-size: 24px;
+}
+
+
+select#oney_credex_payment_option {
+    width: 100%;
+    flex: 1;
+}
+
+.oney_credex_payment_field_info label {
+    flex: 2;
+}
+
+div#checkoutPlaceholder {
+    margin-top: 15px;
+}
+
+@media only screen and (max-width: 976px) {
+    .oney_credex_payment_field_info {
+    flex-direction: column;
+}
+.oney_credex_payment_field_info label {
+    width: 100%;
+    flex: 1;
+    margin-bottom: 10px;
+}
+
+}
+
+li.wc_payment_method.payment_method_oneyCredex img {
+    width: 95px !important;
+}
+
+.netopia-collapse {
+    background-color: #f1f1f1;
+    padding: 20px;
+    border: 2px dashed #8bbc06;
+    background: #fff;
+    margin-bottom: 0px;
+    border-radius: 10px;
+}
+
