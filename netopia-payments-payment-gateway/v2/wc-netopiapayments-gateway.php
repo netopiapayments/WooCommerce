@@ -22,6 +22,13 @@ class netopiapayments extends WC_Payment_Gateway {
     private $wizard_setting;
     private $wizard_button;
     private $key_setting;
+
+    /* Keep these variables because they are used in version 1.4.4, to avoid possible errors during upgrade */
+    private $sandbox_key;
+    private $sandbox_cer;
+    private $live_key;
+    private $live_cer;
+    private $agreement;
     
     
     /**
@@ -55,7 +62,7 @@ class netopiapayments extends WC_Payment_Gateway {
         /**
          * Define the checkNetopiapaymentsResponse methos as NETOPIA Payments IPN
          */
-        add_action('init', array(&$this, 'checkNetopiapaymentsResponse'));
+        // add_action('init', array(&$this, 'checkNetopiapaymentsResponse'));
         add_action('woocommerce_api_' . strtolower( get_class( $this ) ), array( $this, 'checkNetopiapaymentsResponse' ) );
 
         // Save settings
@@ -174,6 +181,7 @@ class netopiapayments extends WC_Payment_Gateway {
             'type'        => 'textarea',
             'description' => __( 'Payment description the customer will see during the checkout process.', 'netopiapayments' ),
             'desc_tip'    => true,
+            'default'     => __( ' ', 'netopiapayments' ),
             'css'         => 'max-width:350px;',
             ),
             'default_status' => array(
