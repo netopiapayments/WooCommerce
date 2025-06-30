@@ -181,7 +181,7 @@ class netopiapayments extends WC_Payment_Gateway {
             'type'        => 'textarea',
             'description' => __( 'Payment description the customer will see during the checkout process.', 'netopiapayments' ),
             'desc_tip'    => true,
-            'default'     => __( ' ', 'netopiapayments' ),
+            'default'     => __( '&nbsp;', 'netopiapayments' ),
             'css'         => 'max-width:350px;',
             ),
             'default_status' => array(
