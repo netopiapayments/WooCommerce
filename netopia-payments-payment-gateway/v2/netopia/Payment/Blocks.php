@@ -95,9 +95,9 @@ final class netopiapaymentsBlocks extends AbstractPaymentMethodType {
 			);
 		
 		$descriptions = [
-			'credit_card'     => __('Pay securely with your credit card.'),
-			'bnpl.oney'       => __('Buy now, pay later with Oney — instant approval, no hidden fees.'),
-			'bnpl.paypo'      => __('Use PayPo to split your purchase into manageable parts.'),
+			'credit_card'     => __('Plata online prin NETOPIA Payments.'),
+			'bnpl.oney'       => __('Plata in 3-4 rate fara dobanda prin Oney.'),
+			'bnpl.paypo'      => __('Plata in 30 de zile fara costuri suplimentare prin PayPo.'),
 		];
 		
 			switch (true) {

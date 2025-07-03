@@ -41,8 +41,8 @@ class netopiapayments extends WC_Payment_Gateway {
         $this->method_description     = __( "NETOPIA Payments V2 Plugin for WooCommerce", 'netopiapayments' );
         $this->title                  = __( "NETOPIA", 'netopiapayments' );
         $this->notify_url             = WC()->api_request_url( 'netopiapayments' );	// IPN URL - WC REST API
-        $this->envMod                 = MODE_STARTUP; // For Auto config
-        // $this->envMod                 = MODE_NORMAL; // For manual config
+        // $this->envMod                 = MODE_STARTUP; // For Auto config
+        $this->envMod                 = MODE_NORMAL; // For manual config
         $this->icon                   = NTP_PLUGIN_DIR . 'v2/img/favicon.png';
         // $this->netopiLogo             = NTP_PLUGIN_DIR . 'img/NETOPIA_Payments.svg';
         // $this->has_fields             = true;
@@ -144,10 +144,6 @@ class netopiapayments extends WC_Payment_Gateway {
     }
 
 
-
-
-
-
     /**
      * Build the administration fields for this specific Gateway
      */
@@ -181,7 +177,7 @@ class netopiapayments extends WC_Payment_Gateway {
             'type'        => 'textarea',
             'description' => __( 'Payment description the customer will see during the checkout process.', 'netopiapayments' ),
             'desc_tip'    => true,
-            'default'     => __( '&nbsp;', 'netopiapayments' ),
+            'default'     => __( ' ', 'netopiapayments' ),
             'css'         => 'max-width:350px;',
             ),
             'default_status' => array(
@@ -324,53 +320,6 @@ class netopiapayments extends WC_Payment_Gateway {
         return ob_get_clean();
     }
 
-    /**
-    * Display Method of payment in classic checkout page
-    */
-    /*
-    function payment_fields() {
-        // Description of payment method from settings
-          if ( $this->description ) { ?>
-             <p><?php echo $this->description; ?></p>
-        <?php }
-        
-        $payment_methods = $this->settings['payment_methods'];
-        // $payment_methods = $this->get_setting( 'payment_methods' );
-        $name_methods = array(
-			'credit_card'	    => __( 'Credit / Debit Card', 'netopiapayments' ),
-			'bnpl.oney'  			=> __( 'Oney', 'netopiapayments' ),
-			'bnpl.paypo'  			=> __( 'Paypo', 'netopiapayments' ),
-			);
-        ?>
-        <div id="netopia-methods">
-            <ul>
-            <?php  foreach ($payment_methods as $method) { ?>
-                  <?php 
-                  $checked ='';
-                  if($method == 'credit_card') $checked = 'checked="checked"';
-            ?>
-                  <li>
-                    <input type="radio" name="netopia_method_pay" class="netopia-method-pay" id="netopia-method-<?=$method?>" value="<?=$method?>" <?php echo $checked; ?> /><label for="inspire-use-stored-payment-info-yes" style="display: inline;"><?php echo $name_methods[$method] ?></label>
-                  </li>             
-            <?php } ?>
-            </ul>
-        </div>
-
-        <style type="text/css">
-              #netopia-methods{display: inline-block;}
-              #netopia-methods ul{margin: 0;}
-              #netopia-methods ul li{list-style-type: none;}
-        </style>
-        <script type="text/javascript">
-            jQuery(document).ready(function($){                
-                var method_ = $('input[name=netopia_method_pay]:checked').val();
-                $('.billing-shipping').show('slow');
-            });
-        </script>
-        <?php
-    }
-    */
-
 /**
  * Display Method of payment and all custom UI in the classic checkout page.
  * This version corrects the HTML structure for the progress bar to match the provided CSS.
@@ -410,10 +359,10 @@ public function payment_fields() {
         echo '<div class="netopia-collapse" id="collapse-' . esc_attr( $method ) . '" style="display:none; padding-left: 25px; margin-top: 10px;">';
 
         if ( 'credit_card' === $method ) {
-            echo '<p>Pay securely with your credit card.<br><img src="'. esc_url( plugin_dir_url( __FILE__ ) .'img/netopia.svg') .'" style="display: inline; width: 95px; margin-bottom: -4px;"></p>';
+            echo '<p>Plata online prin NETOPIA Payments.<br><img src="'. esc_url( plugin_dir_url( __FILE__ ) .'img/netopia.svg') .'" style="display: inline; width: 95px; margin-bottom: -4px;"></p>';
         }
         if ( 'bnpl.paypo' === $method ) {
-            echo '<p>Pay in 30 days or split your purchase into 4 parts with PayPo.<img src="'. esc_url( plugin_dir_url( __FILE__ ) .'img/paypo.svg') .'" style="display: inline; width: 95px; margin-bottom: -4px;"></p>';
+            echo '<p>Cumpara acum, plateste in 30 de zile fara costuri suplimentare cu PayPo.<img src="'. esc_url( plugin_dir_url( __FILE__ ) .'img/paypo.svg') .'" style="display: inline; width: 95px; margin-bottom: -4px;"></p>';
         }
         if ( 'bnpl.oney' === $method ) {
             $cart_total = WC()->cart ? WC()->cart->get_total('edit') : 0;
@@ -621,6 +570,7 @@ public function payment_fields() {
             }
         $request->notifyUrl     = $this->notify_url;                                                    // Your IPN URL
         $request->redirectUrl   = htmlentities(WC_Payment_Gateway::get_return_url( $customer_order ));  // Your backURL
+        $request->cancelUrl   = htmlentities(WC_Payment_Gateway::get_return_url( $customer_order ));  // Your cancelUrl
 
         /**
          * Prepare json for start action
@@ -631,6 +581,7 @@ public function payment_fields() {
          'emailTemplate' => "",
          'notifyUrl'     => $request->notifyUrl,
          'redirectUrl'   => $request->redirectUrl,
+         'cancelUrl'   => $request->cancelUrl,
          'language'      => "RO"
          ];
 
@@ -831,8 +782,6 @@ public function payment_fields() {
 
         include_once('lib/ipn.php');
         require_once 'vendor/autoload.php';
-
-
         
         // /**
         //  * get defined keys
@@ -877,7 +826,6 @@ public function payment_fields() {
             }
         return null;
     }
-
 
     /**
      * Save fields (Payment configuration) in DB
@@ -970,40 +918,4 @@ public function payment_fields() {
         $randomUniqueIdentifier = md5(uniqid(rand(), true));
         return $randomUniqueIdentifier;
     }
-
-    // // To save payment data as meta data in order
-	// public function process_payment_block( $order, $payment_data ) {
-    //     die("TEST process_payment_block");
-	// 	$method = null;
-	// 	$installments = null;
-
-	// 	// Extract data from payment_data array
-	// 	foreach ( $payment_data as $field ) {
-	// 		if ( $field['key'] === 'netopia_method_pay' ) {
-	// 			$method = sanitize_text_field( $field['value'] );
-	// 		}
-	// 		if ( $field['key'] === 'installments_oney' ) {
-	// 			$installments = sanitize_text_field( $field['value'] );
-	// 		}
-	// 	}
-
-
-	// 	// Save meta
-	// 	if ( $method ) {
-	// 		$order->update_meta_data( '_netopia_method_pay', $method );
-	// 	}
-
-	// 	if ( $method === 'bnpl.oney' && $installments ) {
-	// 		$order->update_meta_data( '_netopia_installments_oney', $installments );
-	// 	}
-
-	// 	$order->save();
-
-	// 	// Continue payment process (e.g., redirect to thank you page)
-	// 	return [
-	// 		'result'   => 'success',
-	// 		'redirect' => $this->get_return_url( $order ),
-	// 	];
-	// }
-
 }

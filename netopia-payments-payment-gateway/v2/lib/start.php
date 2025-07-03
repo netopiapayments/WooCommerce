@@ -3,6 +3,7 @@ class Start {
     public $posSignature;
     public $notifyUrl;
     public $redirectUrl;
+    public $cancelUrl;
     public $apiKey;
     public $isLive;
     public $backUrl;
@@ -22,7 +23,7 @@ class Start {
             $jsonDataObj = json_decode($jsonStr);
             switch ($variable = $jsonDataObj->payment->instrument->type) {
                 case 'bnpl.paypo':
-                    $url = $this->isLive ? 'https://uat-secure.netopia-payments.com/api/payment/bnpl/start' : 'https://uat-secure.netopia-payments.com/api/payment/bnpl/start'; // sandbox url is NOT CORRECRT!!
+                    $url = $this->isLive ? 'https://secure.netopia-payments.com/api/payment/bnpl/start' : 'https://secure.netopia-payments.com/api/payment/bnpl/start'; // sandbox url is NOT CORRECRT!!
                     break;
                 case 'bnpl.oney':
                     $url = $this->isLive ? 'https://secure.netopia-payments.com/api/payment/bnpl/start' : 'https://secure.netopia-payments.com/api/payment/bnpl/start'; // sandbox url is NOT CORRECRT!!

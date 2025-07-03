@@ -268,7 +268,7 @@ class IPN extends Request{
                     $outputData['errorMessage']	= "Payment was declined";
 
                     $endUserNote = __('Your payment was declined. Please try again.', 'netopiapayments');
-                    $this->addOrderNoteAndUpdateStatus($actualOrderId, $trxID,  $outputData['errorMessage'], $endUserNote, null, $objIpn->payment->message, $objIpn->payment->code);
+                    $this->addOrderNoteAndUpdateStatus($actualOrderId, $trxID,  $outputData['errorMessage'], $endUserNote, self::STATUS_WC_FAILED, $objIpn->payment->message, $objIpn->payment->code);
                 break;
                 case self::STATUS_FRAUD: // fraud
                     /**
@@ -373,7 +373,7 @@ class IPN extends Request{
                     $outputData['errorCode']	= self::STATUS_ERROR;
                     $outputData['errorMessage']	= "Payment has an error";
 
-                    $this->addOrderNoteAndUpdateStatus($actualOrderId, $trxID,  $outputData['errorMessage'].' | '.$objIpn->payment->message, null , null, $objIpn->payment->message, $objIpn->payment->code);
+                    $this->addOrderNoteAndUpdateStatus($actualOrderId, $trxID,  $outputData['errorMessage'].' | '.$objIpn->payment->message, null , self::STATUS_WC_FAILED, $objIpn->payment->message, $objIpn->payment->code);
                 break;
                 case self::STATUS_PENDING_AUTH: // in asteptare de verificare pentru tranzactii autorizate
                     /**
@@ -531,28 +531,46 @@ class IPN extends Request{
         
         //Update Order Status
         if($newStatus != null) {
-            if($this->isAllowedToChangeStatus($order)) {
-                // here check what is defult status set by admin.
-                $ntpSetting = get_option( 'woocommerce_netopiapayments_settings', [] );
-                if( $order->has_downloadable_item() ) {
-                    $newStatus = self::STATUS_WC_COMPLETED;
-                } else {
-                    switch ($ntpSetting['default_status']) {
-                        case 'completed':
+            switch ($newStatus) {
+                case self::STATUS_WC_CANCELED:
+                case self::STATUS_WC_FAILED:
+                case self::STATUS_WC_PENDING_REVIEW:
+                case self::STATUS_WC_REFUNDED:
+                    # code...
+                    break;
+                
+                default:
+                    # might be processing, completed or null
+                    if($this->isAllowedToChangeStatus($order)) {
+                        // here check what is defult status set by admin.
+                        $ntpSetting = get_option( 'woocommerce_netopiapayments_settings', [] );
+                        if( $order->has_downloadable_item() ) {
                             $newStatus = self::STATUS_WC_COMPLETED;
-                            break;
-                        case 'processing':
-                            $newStatus = self::STATUS_WC_PROCESSING;
-                            break;
-                    }
-                }
+                        } else {
+                            switch ($ntpSetting['default_status']) {
+                                case 'completed':
+                                    $newStatus = self::STATUS_WC_COMPLETED;
+                                    break;
+                                case 'processing':
+                                    $newStatus = self::STATUS_WC_PROCESSING;
+                                    break;
+                            }
+                        }
 
-                if($customMsgStatus != null) {
-                    // $order->add_order_note($customMsgStatus);
-                    $order->update_status($newStatus,$customMsgStatus);
-                } else {
-                    $order->update_status($newStatus);
-                }
+                        // if($customMsgStatus != null) {
+                        //     // $order->add_order_note($customMsgStatus);
+                        //     $order->update_status($newStatus,$customMsgStatus);
+                        // } else {
+                        //     $order->update_status($newStatus);
+                        // }
+                    }
+                    break;
+            }
+
+            if($customMsgStatus != null) {
+                $order->update_status($newStatus,$customMsgStatus);
+            } else {
+                $order->update_status($newStatus);
             }
         }
     }

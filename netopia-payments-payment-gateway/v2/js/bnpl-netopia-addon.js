@@ -22,10 +22,8 @@ function bindNetopiaRadios() {
       if (paypoDiv) {
         paypoDiv.innerHTML = `
               <p>
-                Pay in 30 days or split your purchase into 4 parts with PayPo
-                <br>
-                <strong>zero interest</strong> and <strong>no fees</strong>.
-                <img src="/wp-content/plugins/netopia-payments-payment-gateway/img/paypo.svg" alt="PayPo" style="display: inline; width: 95px; margin-bottom: -10px;">
+                Cumpara acum, plateste in 30 de zile fara costuri suplimentare cu PayPo.
+                <img src="${BNPLData.pluginUrl}/img/paypo.svg" alt="PayPo" style="display: inline; width: 95px; margin-bottom: -10px;">
               </p>
             
         `;
@@ -34,8 +32,8 @@ function bindNetopiaRadios() {
       const cardDiv = document.getElementById('collapse-credit_card');
       if (cardDiv) {
         cardDiv.innerHTML = `<p>
-                                Pay securely with your credit card <br>
-                                <img src="/wp-content/plugins/netopia-payments-payment-gateway/img/netopia.svg" alt="PayPo" style="display: inline; width: 95px; margin-bottom: -30px;">
+                                Plata online prin NETOPIA Payments<br>
+                                <img src="${BNPLData.pluginUrl}/img/netopia.svg" alt="PayPo" style="display: inline; width: 95px; margin-bottom: -30px;">
                               </p>`;
       }
     } else if(selectedValue == 'bnpl.oney') {

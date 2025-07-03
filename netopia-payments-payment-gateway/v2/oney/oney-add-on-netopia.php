@@ -26,6 +26,12 @@
             $version,
             true // Load in footer
         );
+
+        wp_localize_script('bnpl-netopia-addon-js', 'BNPLData', array(
+            'siteUrl' => get_option('siteurl'),
+            'pluginUrl' => untrailingslashit($plugin_url),
+        ));
+
         wp_enqueue_script('bnpl-netopia-addon-js');
 
     });

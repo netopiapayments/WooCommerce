@@ -17,7 +17,7 @@ NETOPIA Payments Woocommerce Payment Gateway extends WooCommerce payment options
 
 * **100% FREE TO USE** (GPLv2 license).
 * Integrates NETOPIA payments' card and cryptocoin payments service with your WordPress + WooCommerce online shop. SMS and Wire transfer options are still under development.
-* Accepts payments with Visa and Mastercard credit/debit cards, Bitcoin and Ethereum
+* Accepts payments with Visa and Mastercard credit/debit cards, Oney and PayPo
 * Handles IPN responses and automatically changes order status on your shop in real time (confirmed/paid or failure messages and refunds).
 
 = Requirements: =

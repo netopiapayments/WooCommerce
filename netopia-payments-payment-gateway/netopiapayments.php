@@ -67,7 +67,7 @@ function netopiapayments_init() {
     	
         wp_localize_script( 'netopiaUIjs', 'netopiaUIPath_data', array(
             'plugin_url' => getAbsoulutFilePath(),
-            'site_url' => get_site_url(),
+            'site_url' => get_option('siteurl'),
             'sKey' => base64_encode(md5(json_encode($ntpOptions).json_encode(get_home_url()))),
             'ntp_notify' => $ntpNotify,
             )

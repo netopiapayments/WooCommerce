@@ -1,5 +1,5 @@
 var ntpNotify = netopiaUIPath_data.ntp_notify;
-var ntpShopConfig = "https://shop-config-fqvtst6pfa-ew.a.run.app";
+var ntpShopConfig = "https://merchants-auth.netopia-payments.com";
 
 document.addEventListener('DOMContentLoaded', function() {
     var popupLink = document.getElementById('woocommerce_netopiapayments_wizard_button');

@@ -25,7 +25,7 @@ abstract class Netopia_Payment_Request_Abstract
 	const PAYMENT_TYPE_CODE 		= 'code';
 	const PAYMENT_TYPE_CASH 		= 'cash';
 	const PAYMENT_TYPE_TRANSFER 	= 'transfer';
-	const PAYMENT_TYPE_BITCOIN 		= 'bitcoin';
+	// const PAYMENT_TYPE_BITCOIN 		= 'bitcoin';
 	const PAYMENT_TYPE_ING_HOME_PAY = 'IngHomePay';
 	const PAYMENT_TYPE_HOME_PAY 	= 'homePay';
 
@@ -353,9 +353,9 @@ abstract class Netopia_Payment_Request_Abstract
 		case Netopia_Payment_Request_Abstract::PAYMENT_TYPE_HOME_PAY:
 			$objPmReq = new Netopia_Payment_Request_Homepay();
 			break;
-		case Netopia_Payment_Request_Abstract::PAYMENT_TYPE_BITCOIN:
-			$objPmReq = new Netopia_Payment_Request_Bitcoin();
-			break;
+		// case Netopia_Payment_Request_Abstract::PAYMENT_TYPE_BITCOIN:
+		// 	$objPmReq = new Netopia_Payment_Request_Bitcoin();
+		// 	break;
 		default:
 			throw new Exception('factoryFromXml invalid payment request type=' . $attr->nodeValue, Netopia_Payment_Request_Abstract::ERROR_FACTORY_BY_XML_INVALID_TYPE);
 			break;
