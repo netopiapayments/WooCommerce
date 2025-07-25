@@ -177,12 +177,12 @@ class IPN extends Request{
              * check active posSignature 
              * check if is in set of signature too
              */
-            if(empty($objJwt->aud) || current($objJwt->aud) != $this->activeKey){
+            if(empty($objJwt->aud) || $objJwt->aud != $this->activeKey){
                 throw new \Exception('IDS_Service_IpnController__INVALID_SIGNATURE'.print_r($objJwt->aud, true).'__'.$this->activeKey);
                 exit;
             }
         
-            if(!in_array(current($objJwt->aud), $this->posSignatureSet,true)) {
+            if(!in_array($objJwt->aud, $this->posSignatureSet,true)) {
                 throw new \Exception('IDS_Service_IpnController__INVALID_SIGNATURE_SET');
                 exit;
             }
