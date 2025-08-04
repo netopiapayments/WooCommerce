@@ -177,15 +177,32 @@ class IPN extends Request{
              * check active posSignature 
              * check if is in set of signature too
              */
-            if(empty($objJwt->aud) || $objJwt->aud != $this->activeKey){
-                throw new \Exception('IDS_Service_IpnController__INVALID_SIGNATURE'.print_r($objJwt->aud, true).'__'.$this->activeKey);
+            $aud = $objJwt->aud;
+
+            // Check if empty
+            if (empty($aud)) {
+                throw new \Exception('IDS_Service_IpnController__INVALID_SIGNATURE_EMPTY__' . print_r($aud, true) . '__' . $this->activeKey);
                 exit;
             }
+
+            // Normalize to array if it's a string
+            $audList = is_array($aud) ? $aud : [$aud];
+
+            // Check if any value in the list matches $this->activeKey
+            if (!in_array($this->activeKey, $audList, true)) {
+                throw new \Exception('IDS_Service_IpnController__INVALID_SIGNATURE_MISMATCH__' . print_r($aud, true) . '__' . $this->activeKey);
+                exit;
+            }
+            
+            // if(empty($objJwt->aud) || $objJwt->aud != $this->activeKey){
+            //     throw new \Exception('IDS_Service_IpnController__INVALID_SIGNATURE'.print_r($objJwt->aud, true).'__'.$this->activeKey);
+            //     exit;
+            // }
         
-            if(!in_array($objJwt->aud, $this->posSignatureSet,true)) {
-                throw new \Exception('IDS_Service_IpnController__INVALID_SIGNATURE_SET');
-                exit;
-            }
+            // if(!in_array($objJwt->aud, $this->posSignatureSet,true)) {
+            //     throw new \Exception('IDS_Service_IpnController__INVALID_SIGNATURE_SET');
+            //     exit;
+            // }
             
             if(!isset($this->hashMethod) || $this->hashMethod==null){
                 throw new \Exception('IDS_Service_IpnController__INVALID_HASH_METHOD');
