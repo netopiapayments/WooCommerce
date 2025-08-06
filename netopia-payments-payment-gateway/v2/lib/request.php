@@ -84,10 +84,10 @@ class Request extends Start {
                 'details'       => (string) $orderData->shipping->details
             ],
             'products' => $orderData->products,
-            'installments'  => array(
-                                    'selected'  => (int) 1,
-                                    'available' => [(int) 0]
-                            ),
+            // 'installments'  => array(
+            //                         'selected'  => (int) 1,
+            //                         'available' => [(int) 0]
+            //                 ),
             'data'       => [
                 'api'   => $orderData->data->api,
                 'platform'   => $orderData->data->platform,
